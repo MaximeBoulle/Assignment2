@@ -8,10 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchButton.addEventListener('click', () => {
 
-        const userId = userIdInput.value;
+        const userId = parseInt(userIdInput.value);
 
         if (!userId) {
             alert("Insert an ID !");
+            return;
+        }
+        if(userId < 1 || userId > 20) {
+            alert("Insert a valid ID !");
             return;
         }
 
