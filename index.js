@@ -1,33 +1,14 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const port = 3000;
+const port = 8000;
 
-const data = [
-    {
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Leanne@gmail.com"
-    },
-    {
-        "id": 2,
-        "name": "Ervin Howell",
-        "username": "Antonette",
-        "email": "Ervin@gmail.com"
-    },
-    {
-        "id": 3,
-        "name": "Clementine Bauch",
-        "username": "Samantha",
-        "email": "Samantha@gmail.com"
-    }
-];
 
-const getDataById = (id) => data.find(user => user.id === parseInt(id));
 
 const StaticRoute = express.static('static');
 
 app.use('/', StaticRoute);
+
+import {getDataById, getRandomData} from './data.js';
 
 app.get('/api/id/:userId', (req, res) => {
     const userId = req.params.userId;
@@ -40,6 +21,14 @@ app.get('/api/id/:userId', (req, res) => {
         res.json({ message: 'No data for this ID' });
     }
 });
+
+const randomRoute = (req, res) => {
+    const randomUser = getRandomData();
+    console.log(randomUser);
+    res.json(randomUser);
+}
+
+app.get('/api/random/', randomRoute);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
